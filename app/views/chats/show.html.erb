@@ -1,1 +1,12 @@
-<h1>show chat</h1>
+<div class="container text-center">
+        <%= link_to "← Mes chats", chats_path %>
+
+    <h1 id="chat_title"><%= @chat.title %></h1>
+
+<div id="new_message_container">
+    <%= simple_form_for [@chat, @message] do |f| %>
+        <%= f.input :content, label: "Ask a question", required: true, placeholder: "How should I get started with the challenge?" %>
+        <%= f.button :submit, 'Ask LLM', class: 'btn btn-primary' %>
+    <% end %>
+    </div>
+</div>
