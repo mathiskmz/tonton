@@ -1,5 +1,6 @@
 <h1>Tous mes articles</h1>
 <p>J'ai <%= @articles.count %> article(s).</p>
+<%= link_to "Synthèse de l'actu", resume_path(@articles), class:"btn btn-success align-self-center rounded-pill" %>
 
 <div class="row">
     <% @articles.each do |article| %>
