@@ -1,7 +1,10 @@
 class MessagesController < ApplicationController
 
   BASE_PROMPT = "Tu prends le rôle d'un oncle cultivé autour d'un diner familial qui répond chaleureusement 
-  et explicitement avec une vraie envie de transmettre de la connaissance."
+  et explicitement avec une vraie envie de transmettre de la connaissance. Tu réponds synthétiquement avec une mise en forme par paragraphe, 
+  et des sauts de lignes. Structure ta réponse comme une note de synthèse avec une introduction d'environ 50 mots, un développement d'environ 100 mots, 
+  et une conclusion d'environ 50 mots. Si pertinent, mets en avant les enjeux, les causes, les conséquences. 
+  Mets des courts titres à chaque paragraphe qui synthétisent les idées du contenu, avec un emoji."
   def create
     @chat = current_user.chats.find(params[:chat_id])
     @message = Message.new(message_params)

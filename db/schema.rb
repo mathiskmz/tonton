@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_07_231858) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_14_191739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "articles", force: :cascade do |t|
+    t.text "content_scrapped"
+    t.datetime "created_at", null: false
+    t.text "resume_from_llm"
+    t.string "rss_article_link"
+    t.text "rss_desc"
+    t.text "rss_feed_link"
+    t.text "rss_title"
+    t.datetime "updated_at", null: false
+  end
 
   create_table "chats", force: :cascade do |t|
     t.datetime "created_at", null: false
