@@ -1,0 +1,6 @@
+<h1>new articles from RSS feed</h1>
+
+<%= simple_form_for @article do |f| %>
+  <%= f.input :rss_feed, placeholder: "write here the rss feed link" %>
+  <%= f.button :submit, "Créer un chat", class:"btn btn-info" %>
+<% end %>

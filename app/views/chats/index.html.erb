@@ -1,17 +1,20 @@
 .<div class="container">
     <div class="d-flex justify-content-between">
         <h1>Mes conversations</h1>
-        <%= link_to "Nouveau chat", new_chat_path, class:"btn btn-success align-self-center" %>
+        <%= link_to "Nouveau chat", new_chat_path, class:"btn btn-success align-self-center rounded-pill" %>
+        <%= link_to "Nouvel article", new_article_path, class:"btn btn-warning align-self-center rounded-pill" %>
     </div>
 
-    <% @chats.each do |chat| %>
-        <div class="card" style="width: 18rem;">
-        <%= image_tag "glasses.png" %>
-        <div class="card-body">
-            <h5 class="card-title"> <%= chat.title %></h5>
-            <%# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> %>
-            <%= link_to "Ouvrir", chat_path(chat), class:"btn btn-primary" %>
-        </div>
-        </div>
-    <% end %>
+    <div class="row">
+        <% @chats.each do |chat| %>
+            <div class="card col-4 shadow p-3 m-1 rounded-5 border border-0" style="width: 18rem;">
+            <%= image_tag "glasses.png" %>
+            <div class="card-body">
+                <h5 class="card-title"> <%= chat.title %></h5>
+                <%# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> %>
+                <%= link_to "Ouvrir", chat_path(chat), class:"btn btn-primary rounded-pill" %>
+            </div>
+            </div>
+        <% end %>
+    </div>
 </div>
