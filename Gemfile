@@ -17,7 +17,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 gem "devise"
-gem "ruby_llm", "~> 1.2.0"
+gem "ruby_llm", "~> 1.14.1"
 gem "rss"
 gem "neighbor"
 
