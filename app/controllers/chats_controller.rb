@@ -17,6 +17,23 @@ class ChatsController < ApplicationController
     end
   end
 
+  def create_from_article
+    article = Article.find(params[:format])
+    @chat = Chat.new(title: article.rss_title)
+    @chat.user = current_user
+    base_prompt = MessagesController::BASE_PROMPT
+    if @chat.save
+      llm_set = RubyLLM.chat
+      llm_set_base = llm_set.with_instructions(base_prompt)
+      llm_prompt = llm_set_base.ask(article.content_scrapped)
+      llm_response = llm_prompt.content
+      Message.create(role: "assistant", content: llm_response, chat_id: @chat.id)
+      redirect_to chat_path(@chat)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def show
     @chat = current_user.chats.find(params[:id])
     @messages = @chat.messages

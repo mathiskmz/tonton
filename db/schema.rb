@@ -15,7 +15,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_14_191739) do
   enable_extension "pg_catalog.plpgsql"
 
   create_table "articles", force: :cascade do |t|
-    t.text "content_scrapped"
+    t.text ""
     t.datetime "created_at", null: false
     t.text "resume_from_llm"
     t.string "rss_article_link"

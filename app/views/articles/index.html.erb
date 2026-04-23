@@ -9,6 +9,7 @@
                 <h5 class="card-title"> <%= article.rss_title %></h5>
                 <%# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> %>
             </div>
+        <%= link_to "Voir l'article" ,article_path(article.id), class: "btn btn-secondary" %>
         </div>
     <% end %>
 </div>

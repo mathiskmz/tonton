@@ -16,7 +16,6 @@ class MessagesController < ApplicationController
       llm_prompt = llm_set_base.ask(@message.content)
       llm_response = llm_prompt.content
       Message.create(role: "assistant", content: llm_response, chat_id: @chat.id)
-      
       redirect_to chat_path(@message.chat)
     else
       @chat = @message.chat

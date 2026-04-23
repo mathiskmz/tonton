@@ -1,0 +1,9 @@
+<%= button_to "Expliquer cet article", create_from_article_chats_path(@article), class:"btn btn-success" %>
+
+<h3><%= @article.rss_title %></h3>
+
+<h4> Résumé : </h4>
+<p><%= @article.resume_from_llm %></p>
+
+<h4> Article complet :</h4>
+<p><%= simple_format(@article.content_scrapped) %></p>

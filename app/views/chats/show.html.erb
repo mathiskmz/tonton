@@ -14,7 +14,9 @@
         <% elsif message.role == "assistant" %>
         <div class="d-flex justify-content-start mb-2">
             <div class="bg-primary text-white px-3 py-2 rounded-4 d-inline-block text-start" style="max-width: 75%;">
-                <%= simple_format(message.content) %>
+                <% renderer = Redcarpet::Render::HTML.new(escape_html: true) %>
+                <% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true) %>
+                <%= raw markdown.render(message.content) %> <%# herb:disable erb-no-unsafe-raw %>
             </div>
         </div>
         <% end %>

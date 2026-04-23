@@ -14,8 +14,11 @@ Rails.application.routes.draw do
   # root "posts#index"
   root to: "pages#home"
   resources :chats, only: [:index, :new, :create, :show] do
+    collection do
+      post :create_from_article
+    end
     resources :messages, only: [:create]
   end
 
-  resources :articles, only: [:index, :new, :create]
+  resources :articles, only: [:index, :new, :create, :show]
 end
