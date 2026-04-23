@@ -51,7 +51,7 @@ POST /chats/:id/messages → messages#create
 **Frontend:** Bootstrap 5.3 + Hotwire (Turbo + Stimulus) + import maps. No Node.js build step.
 
 **Environment variables** (`.env` in dev):
-- `GITHUB_TOKEN_OPENAI` — LLM API token used by RubyLLM
+- `TOKEN_OPENAI` — LLM API token used by RubyLLM
 
 ## Style
 
