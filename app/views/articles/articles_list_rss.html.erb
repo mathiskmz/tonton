@@ -14,10 +14,10 @@
 <!-- <button>Importer ces articles</button> -->
 
 <form action="/articles" method="post">
-    <button class="btn btn-success">Importer les articles</button>
+    <button id="import-btn" class="btn btn-success" disabled>Importer les articles</button>
   <% @articles.each do |article| %>
     <label class="d-flex border rounded shadow-sm m-2 p-2">
-        <input type="checkbox" name="selected_links[]" value="<%= article %>">
+        <input type="checkbox" name="selected_links[]" value="<%= article %>" class="article-checkbox">
         <div>
             <img class="m-3" style="width:60px;height:60px;object-fit:cover;" src="<%= article[:image] %>" alt="Photo de l'article <%= article[:titre] %>">
         </div>
@@ -26,5 +26,19 @@
         </span>
     </label>
   <% end %>
-  <button class="btn btn-success">Importer les articles</button>
+  <button id="import-btn-bottom" class="btn btn-success" disabled>Importer les articles</button>
 </form>
+
+<script nonce="<%= request.content_security_policy_nonce %>">
+  var checkboxes = document.querySelectorAll(".article-checkbox");
+  var btnTop = document.getElementById("import-btn");
+  var btnBottom = document.getElementById("import-btn-bottom");
+
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener("change", function() {
+      var anyChecked = document.querySelectorAll(".article-checkbox:checked").length > 0;
+      btnTop.disabled = !anyChecked;
+      btnBottom.disabled = !anyChecked;
+    });
+  });
+</script>
