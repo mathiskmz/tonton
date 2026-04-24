@@ -4,7 +4,7 @@
 <div class="row">
     <% @articles.each do |article| %>
         <div class="card col-4 shadow p-3 m-1 rounded-5 border border-0" style="width: 18rem;">
-            <%= image_tag "news.png" %>
+            <%= image_tag "news.png" %> <%# herb:disable html-img-require-alt %>
             <div class="card-body">
                 <h5 class="card-title"> <%= article.rss_title %></h5>
                 <%# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> %>

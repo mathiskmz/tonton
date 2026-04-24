@@ -11,6 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    raise
     rss_feed_url = params[:article][:rss_feed_link]
     rss = URI.parse(rss_feed_url).read
     feed = RSS::Parser.parse(rss)
@@ -33,6 +34,14 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
+  def articles_list_rss
+    rss = URI.parse("https://www.franceinfo.fr/titres.rss").read
+    feed = RSS::Parser.parse(rss)
+    @articles = []
+    articles_loop = feed.items.each do |article|
+      @articles.push({ titre: article.title, desc: article.description, url: article.link, image: article.enclosure.url })
+    end
+  end
 
   private
 

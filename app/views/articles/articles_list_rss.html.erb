@@ -1,0 +1,30 @@
+<h1>Quels articles à la une souhaitez-vous importer ?</h1>
+
+<%# @articles.each do |article| %>
+    <!-- <ul> -->
+        <!-- <li class="d-flex border"> -->
+            <!-- <input type="checkbox" class="m-5"> -->
+            <!-- <span> -->
+                <!-- <div class="p-2"> Titre : <%#= article[:titre] %></div> -->
+                <!-- <div class="p-2"> Description : <%#= article[:desc] %></div> -->
+            <!-- </span> -->
+        <!-- </li> -->
+    <!-- </ul> -->
+<%# end %>
+<!-- <button>Importer ces articles</button> -->
+
+<form action="/articles" method="post">
+    <button class="btn btn-success">Importer les articles</button>
+  <% @articles.each do |article| %>
+    <label class="d-flex border rounded shadow-sm m-2 p-2">
+        <input type="checkbox" name="selected_links[]" value="<%= article %>">
+        <div>
+            <img class="m-3" style="width:60px;height:60px;object-fit:cover;" src="<%= article[:image] %>" alt="Photo de l'article <%= article[:titre] %>">
+        </div>
+        <span>
+            <%= article[:titre] %>
+        </span>
+    </label>
+  <% end %>
+  <button class="btn btn-success">Importer les articles</button>
+</form>
