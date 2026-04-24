@@ -15,9 +15,9 @@
 
 <form action="/articles" method="post">
     <button id="import-btn" class="btn btn-success" disabled>Importer les articles</button>
-  <% @articles.each do |article| %>
+  <% @articles_recents.each do |article| %>
     <label class="d-flex border rounded shadow-sm m-2 p-2">
-        <input type="checkbox" name="selected_links[]" value="<%= article %>" class="article-checkbox">
+        <input type="checkbox" name="selected_links[]" value="<%= article[:url] %>" class="article-checkbox">
         <div>
             <img class="m-3" style="width:60px;height:60px;object-fit:cover;" src="<%= article[:image] %>" alt="Photo de l'article <%= article[:titre] %>">
         </div>
