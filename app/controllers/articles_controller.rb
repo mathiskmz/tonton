@@ -27,7 +27,6 @@ class ArticlesController < ApplicationController
         article.save!
       end
     end
-    redirect_to articles_path
   end
 
 
