@@ -17,7 +17,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 gem "devise"
-gem "ruby_llm", "~> 1.2.0"
+gem "ruby_llm", "~> 1.14.1"
 gem "rss"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
