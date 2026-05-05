@@ -1,0 +1,2 @@
+class LastHourArticle < ApplicationRecord
+end

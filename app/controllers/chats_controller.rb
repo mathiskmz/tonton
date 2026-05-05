@@ -115,8 +115,9 @@ class ChatsController < ApplicationController
 
   def main_topic(hash_of_articles)
     system_prompt = "Ton rôle est d'extraire en une phrase de 5 à 15 mots,
-    le sujet principale au sein de ce hash constitué d'articles. Selon la récurrence et l'importance ou l'urgence des sujets.
-    Fais preuve de discernement et de pertinence, comme si tu devais choisir l'actualité la plus pertinente pour ensuite l'expliquer à un ami."
+    le sujet principale au sein de ce hash constitué d'articles. Selon la récurrence, l'importance, etl'urgence des sujets.
+    Fais preuve de discernement et de pertinence, comme si tu devais choisir l'actualité la plus pertinente pour ensuite l'expliquer à un ami.
+    Extrait un sujet plutôt grand public, ayant un intérêt/impact pour le plus grand nombre de personne. "
     RubyLLM.chat.with_instructions(system_prompt).ask(hash_of_articles.to_json).content
   end
 

@@ -111,6 +111,44 @@ ALTER SEQUENCE public.chats_id_seq OWNED BY public.chats.id;
 
 
 --
+-- Name: last_hour_articles; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.last_hour_articles (
+    id bigint NOT NULL,
+    content_scrapped text,
+    resume_from_llm text,
+    rss_title text,
+    rss_desc text,
+    rss_article_link character varying,
+    rss_feed_link text,
+    embedding public.vector,
+    image_link character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: last_hour_articles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.last_hour_articles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: last_hour_articles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.last_hour_articles_id_seq OWNED BY public.last_hour_articles.id;
+
+
+--
 -- Name: messages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -202,6 +240,13 @@ ALTER TABLE ONLY public.chats ALTER COLUMN id SET DEFAULT nextval('public.chats_
 
 
 --
+-- Name: last_hour_articles id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.last_hour_articles ALTER COLUMN id SET DEFAULT nextval('public.last_hour_articles_id_seq'::regclass);
+
+
+--
 -- Name: messages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -237,6 +282,14 @@ ALTER TABLE ONLY public.articles
 
 ALTER TABLE ONLY public.chats
     ADD CONSTRAINT chats_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: last_hour_articles last_hour_articles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.last_hour_articles
+    ADD CONSTRAINT last_hour_articles_pkey PRIMARY KEY (id);
 
 
 --
@@ -314,6 +367,7 @@ ALTER TABLE ONLY public.chats
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260505151335'),
 ('20260424141223'),
 ('20260314213642'),
 ('20260314213346'),
