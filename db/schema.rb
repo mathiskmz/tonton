@@ -10,20 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_14_191739) do
+
+
+
+
+
+
+#########
+# à partir du 24/04/2026 on utilise structure.sql directement en SQL car le schema en Ruby ne fonctionne pas avec les embeddings (vectors)
+##########
+#
+#
+#
+#
+#
+#
+#
+#
+
+ActiveRecord::Schema[8.1].define(version: 2026_04_24_141223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "vector"
 
-  create_table "articles", force: :cascade do |t|
-    t.text "content_scrapped"
-    t.datetime "created_at", null: false
-    t.text "resume_from_llm"
-    t.string "rss_article_link"
-    t.text "rss_desc"
-    t.text "rss_feed_link"
-    t.text "rss_title"
-    t.datetime "updated_at", null: false
-  end
+# Could not dump table "articles" because of following StandardError
+#   Unknown type 'vector(1536)' for column 'embedding'
+
 
   create_table "chats", force: :cascade do |t|
     t.datetime "created_at", null: false

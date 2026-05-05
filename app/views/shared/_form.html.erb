@@ -1,4 +1,4 @@
-<%= simple_form_for element do |f| %>
+<%= simple_form_for @chat do |f| %> <%# herb:disable erb-no-instance-variables-in-partials %>
   <%= f.input :title %>
   <%= f.button :submit, "Créer un chat", class:"btn btn-info" %>
 <% end %>
