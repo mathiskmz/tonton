@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
+  def after_sign_out_path_for(_resource_or_scope)
+    root_path
+  end
+
   def base_prompt(messages_for_history)
     "Tu prends le rôle d'un oncle cultivé autour d'un diner familial qui répond chaleureusement 
     et explicitement avec une vraie envie de transmettre de la connaissance. Tu réponds synthétiquement avec une mise en forme par paragraphe, 

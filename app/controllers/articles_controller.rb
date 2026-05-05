@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    if params[:selected_links] #permet de créer des articles directement à partir des articles à la lune (titre.rss franceinfo)
+    if params[:selected_links] #permet de créer des articles directement à partir des articles à la une et SELECTIONNES (titre.rss franceinfo)
       articles_selected = params[:selected_links]
       list = articles_list_rss #relancer la génération des articles à sélectionner à partir du flux RSS // pour fiabiliser vaudrait mieux stocker l'array déjà généré dans la méthode dans une variable constante
       infos_articles_selected = articles_selected.map do |article_url|
@@ -27,7 +27,8 @@ class ArticlesController < ApplicationController
             rss_article_link: article.first[:url].split("#").first,
             image_link: article.first[:image],
             content_scrapped: get_content_france_info(article.first[:url].split("#").first).text,
-            resume_from_llm: resume_article(get_content_france_info(article.first[:url].split("#").first).text)
+            resume_from_llm: resume_article(get_content_france_info(article.first[:url].split("#").first).text),
+            user_id: current_user.id
           )
           article.save!
         end
