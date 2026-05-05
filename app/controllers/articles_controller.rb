@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    if params[:selected_links]
+    if params[:selected_links] #permet de créer des articles directement à partir des articles à la lune (titre.rss franceinfo)
       articles_selected = params[:selected_links]
       list = articles_list_rss #relancer la génération des articles à sélectionner à partir du flux RSS // pour fiabiliser vaudrait mieux stocker l'array déjà généré dans la méthode dans une variable constante
       infos_articles_selected = articles_selected.map do |article_url|
@@ -32,7 +32,7 @@ class ArticlesController < ApplicationController
           article.save!
         end
       end
-    else
+    else #permet de créer des articles à partir d'un lien RSS
       rss_feed_url = params[:article][:rss_feed_link]
       rss = URI.parse(rss_feed_url).read
       feed = RSS::Parser.parse(rss)
@@ -83,7 +83,7 @@ class ArticlesController < ApplicationController
   end
 
   def resume_article(content)
-    system_prompt = "Tu es un journaliste et tu vas recevoir un texte. 
+    system_prompt = "Tu es un journaliste et tu vas recevoir un texte.
     Il faudra que tu résumes ce texte en 100 mots max."
     # il faudra penser à passer sur une clé LLM (et reconfiguration) OpenAI ou Anthropic directement pour éviter certains
     # filtres restrictifs avec Azure via GitHub --> certains articles sont actuellement non résumé par le LLM et donc
