@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :chats, dependent: :destroy
   has_many :messages, through: :chats
+  has_many :articles, dependent: :destroy
 end

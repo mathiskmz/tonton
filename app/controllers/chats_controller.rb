@@ -38,33 +38,20 @@ class ChatsController < ApplicationController
   end
 
   def create_from_news_checkup
-    #récupérer les articles du feed RSS https://www.franceinfo.fr/titres.rs et stocker dans un hash
-    #redondance articles_controller => REFACTO
-    @articles_recents = []
-    rss = URI.parse("https://www.franceinfo.fr/titres.rss").read
-    feed = RSS::Parser.parse(rss)
-    feed.items.each do |item|
-      article = Article.new(
-        rss_feed_link: "https://www.franceinfo.fr/titres.rss",
-        rss_title: item.title,
-        rss_desc: item.description,
-        rss_article_link: item.link.split("#").first,
-        content_scrapped: get_content_france_info(item.link.split("#").first).text,
-        resume_from_llm: resume_article(get_content_france_info(item.link.split("#").first).text)
-      )
-      @articles_recents.push(article)
-    end
-    #donner ce hash à un agent IA pour prioriser et extraire un sujet important et récurrent
+    #récupérer les articles du feed RSS https://www.franceinfo.fr/titres.rs + MONDE + FRANCE via job (et dans table lastHourArticles) et stocker dans un hash
+    #Active Record relation (array composé de hashes)
+    @articles_recents = LastHourArticle.all
+    articles_count = @articles_recents.count
+    #1er call LLM : donner ce hash à un agent IA pour prioriser et extraire un sujet important et récurrent
     topic = main_topic(@articles_recents)
-    #donner le hash à un autre agent IA pour séléctionner les articles relatifs au sujet
+    #2eme call LLM : donner le hash à un autre agent IA pour séléctionner les articles relatifs au sujet
     relevant_articles = select_relevant_articles(topic, @articles_recents)
 
     #AMELIORATION : stocker en BD RAG les articles à la une des 10 derniers jours, permettant à un LLM d'avoir un meilleur contexte de l'actualité
     #AMELIORATION : possibilité pour l'agent IA d'accéder aux articles d'un feed spécifique si besoin selon le sujet principal (politique, etc)
     
-    #donner le hash avec les articles séléctionnés à un LLM pour obtenir une synthèse explicative (contexte, faits, enjeux)
-    tonton_first_message = first_message_sumup_articles(relevant_articles)
-    
+    #3eme call LLM : rdonner le hash avec les articles séléctionnés à un LLM pour obtenir une synthèse explicative (contexte, faits, enjeux)
+    tonton_first_message = "#{first_message_sumup_articles(relevant_articles)}\n(j'ai travaillé sur #{articles_count} articles.)"
     chat = Chat.new(title: topic, user_id: current_user.id)
     chat.save
     message = Message.new(chat_id: chat.id, content: tonton_first_message, role: "assistant")
@@ -121,10 +108,10 @@ class ChatsController < ApplicationController
     RubyLLM.chat.with_instructions(system_prompt).ask(hash_of_articles.to_json).content
   end
 
-  def select_relevant_articles(topic, hash_of_articles)
+  def select_relevant_articles(topic, array_of_hash_of_articles)
     system_prompt = "Ton rôle est de séléctionner les articles correspondants à ce sujet : #{topic}.
     Renvoie la totalité des clés et valeurs associées aux articles que tu auras séléctionnés, afin de constituer ensuite un array de hash d'articles."
-    RubyLLM.chat.with_instructions(system_prompt).ask(hash_of_articles.to_json).content
+    RubyLLM.chat.with_instructions(system_prompt).ask(array_of_hash_of_articles.to_json).content
   end
 
   def first_message_sumup_articles(hash_of_selected_articles)

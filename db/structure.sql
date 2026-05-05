@@ -55,7 +55,8 @@ CREATE TABLE public.articles (
     rss_article_link character varying,
     rss_feed_link text,
     embedding public.vector(1536),
-    image_link character varying
+    image_link character varying,
+    user_id bigint
 );
 
 
@@ -317,6 +318,13 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: index_articles_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_articles_on_user_id ON public.articles USING btree (user_id);
+
+
+--
 -- Name: index_chats_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -353,6 +361,14 @@ ALTER TABLE ONLY public.messages
 
 
 --
+-- Name: articles fk_rails_3d31dad1cc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.articles
+    ADD CONSTRAINT fk_rails_3d31dad1cc FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: chats fk_rails_e555f43151; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -367,6 +383,7 @@ ALTER TABLE ONLY public.chats
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260505160313'),
 ('20260505151335'),
 ('20260424141223'),
 ('20260314213642'),
