@@ -1,6 +1,10 @@
 <h1>Tous mes articles</h1>
 <p>J'ai <%= @articles.count %> article(s).</p>
 
+        <%= link_to "Importer des articles via RSS", new_article_path, class:"btn btn-warning align-self-center rounded-pill" %>
+        <%= link_to "Séléctionner des articles à la Une", articles_list_rss_articles_path, class:"btn btn-warning align-self-center rounded-pill" %>
+
+
 <div class="row">
     <% @articles.each do |article| %>
         <div class="card col-4 shadow p-3 m-1 rounded-5 border border-0" style="width: 18rem;">

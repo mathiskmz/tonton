@@ -1,11 +1,8 @@
 .<div class="container">
-    <div class="d-flex justify-content-between">
+    <div class="">
         <h1>Mes conversations</h1>
-        <%= link_to "Nouveau chat", new_chat_path, class:"btn btn-success align-self-center rounded-pill" %>
-        <%= link_to "Nouvel article", new_article_path, class:"btn btn-warning align-self-center rounded-pill" %>
-        <%= link_to "Importer des articles", articles_list_rss_articles_path, class:"btn btn-warning align-self-center rounded-pill" %>
-        <%= link_to "Tous mes articles", articles_path, class:"btn btn-warning align-self-center rounded-pill" %>
-        <%= link_to "C'est quoi l'actu ?", create_from_news_checkup_chats_path, method: :post, class:"btn btn-warning align-self-center rounded-pill" %>
+        <%= link_to "Nouveau chat", new_chat_path, class:"btn btn-warning align-self-center rounded-pill" %>
+        <%= link_to "C'est quoi l'actu ?", create_from_news_checkup_chats_path, method: :post, class:"btn btn-success text-white align-self-center rounded-pill shadow-sm" %>
     </div>
 
     <div class="row">

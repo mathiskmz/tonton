@@ -37,23 +37,27 @@
 
 
 <!-- Hero -->
-<section class="py-5 text-center">
-  <div class="container">
-    <h1 class="display-5 fw-bold">Comprenez l’actualité en quelques minutes</h1>
-    <p class="lead">
-      Tonton 🤓 analyse les articles d’actualité et génère des synthèses adaptées à vos centres d’intérêt.
-    </p>
-
-    <div class="mt-4">
-      <a href="#" class="btn btn-primary btn-lg">Commencer gratuitement</a>
-      <a href="#" class="btn btn-outline-secondary btn-lg">Voir la démo</a>
+<section class="py-5 text-center bg-white">
+  <div class="container d-flex align-items-center">
+    <div class="text-end">
+      <h1 class="display-5 fw-bold">Comprenez l’actualité en quelques minutes</h1>
+      <p class="lead">
+        Tonton 🤓 analyse les articles d’actualité et génère des synthèses adaptées à vos centres d’intérêt.
+      </p>
+      <% unless user_signed_in? %>
+          <div class="m-4">
+            <%= link_to "Commencer gratuitement", new_user_session_path, class: "btn btn-success btn-lg" %>
+            <!-- <a href="#" class="btn btn-outline-secondary btn-lg">Voir la démo</a> -->
+          </div>
+      <% end %>
     </div>
+    <img src="/assets/tonton.png" class="w-25" alt="Logo de l'application Tonton, comprenez l'actu le temps d'un café">
   </div>
 </section>
 
 
 <!-- Features -->
-<section class="py-5 bg-light">
+<section class="py-5">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -90,7 +94,7 @@
 
 
 <!-- How it works -->
-<section class="py-5">
+<section class="py-5 bg-white">
   <div class="container">
 
     <div class="text-center mb-5">
@@ -120,13 +124,15 @@
 
 
 <!-- CTA -->
-<section class="py-5 bg-primary text-white text-center">
-  <div class="container">
-    <h2>Gagnez du temps sur votre veille</h2>
-    <p class="mb-4">Recevez chaque jour une synthèse claire de l’actualité.</p>
-    <a href="#" class="btn btn-light btn-lg">Créer un compte</a>
-  </div>
-</section>
+<% unless user_signed_in? %>
+  <section class="py-5 bg-black text-white text-center">
+    <div class="container">
+      <h2>Gagnez du temps sur votre veille</h2>
+      <p class="mb-4">Recevez chaque jour une synthèse claire de l’actualité.</p>
+        <%= link_to "Commencer gratuitement", new_user_session_path, class: "btn btn-success btn-lg" %>
+    </div>
+  </section>
+<% end %>
 
 
 <!-- Footer -->
