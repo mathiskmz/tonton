@@ -21,6 +21,33 @@ class ChatsController < ApplicationController
     end
   end
 
+  def show
+    @chat = current_user.chats.find(params[:id])
+    @messages = @chat.messages
+    @message = Message.new
+  end
+
+  def edit
+    @chat = Chat.find(params[:id])
+  end
+
+  def update
+    @chat = Chat.find(params[:id])
+    new_title = chats_params[:title]
+    @chat.title = new_title
+    if @chat.save
+      redirect_to chats_path, notice: 'Conversation mise à jour'
+    else
+      render :edit, status: :unprocessable_entity 
+    end
+  end
+
+  def destroy
+    @chat = Chat.find(params[:id])
+    @chat.destroy
+    redirect_to chats_path, notice: 'Conversation supprimée'
+  end
+
   def create_from_article
     article = Article.find(params[:format])
     @chat = Chat.new(title: article.rss_title)
@@ -60,12 +87,6 @@ class ChatsController < ApplicationController
     else
       render :home, status: :unprocessable_entity #bien prévoir un message d'erreur et un lancement du chat manuel avec un premier message de l'utilisateur
     end
-  end
-
-  def show
-    @chat = current_user.chats.find(params[:id])
-    @messages = @chat.messages
-    @message = Message.new
   end
 
   private
