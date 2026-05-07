@@ -12,7 +12,9 @@
             <div class="card-body">
                 <h5 class="card-title"> <%= chat.title %></h5>
                 <%# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p> %>
-                <%= link_to "Ouvrir", chat_path(chat), class:"btn btn-primary rounded-pill" %>
+                <%= link_to "Ouvrir", chat_path(chat), class:"btn btn-primary rounded-pill text-white" %>
+                <%= link_to "Modifier", edit_chat_path(chat), class:"btn btn-info rounded-pill text-white" %>
+                <%= link_to "Supprimer", chat_path(chat), class:"btn btn-danger rounded-pill text-white", data: {turbo_method: :delete, turbo_confirm: "Tu confirmes la suppression ? 🗑️👀 "} %>
             </div>
             </div>
         <% end %>
