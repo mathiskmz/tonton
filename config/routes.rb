@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :messages, only: [:create]
   end
 
-  resources :articles, only: [:index, :new, :create, :show] do 
+  resources :articles, only: [:index, :new, :create, :show, :destroy] do 
     collection do 
       get :articles_list_rss
     end

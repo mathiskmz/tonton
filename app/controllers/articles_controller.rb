@@ -58,6 +58,12 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+    redirect_to articles_path, notice: 'Article supprimé'
+  end
+
   def articles_list_rss
     rss = URI.parse("https://www.franceinfo.fr/titres.rss").read
     feed = RSS::Parser.parse(rss)
